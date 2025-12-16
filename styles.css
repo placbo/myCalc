@@ -1,0 +1,27 @@
+:root {
+  --bg: #050917;
+  --main-color: #ff6347; /* Tomato color */
+}
+
+body {
+  background-color: var(--bg);
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  margin: auto;
+}
+
+h1 {
+  color: var(--main-color);
+}
+
+.calculator-body {
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  margin: auto;
+}
+
+#display {
+  text-align: right;
+}
