@@ -12,9 +12,9 @@ function safeCalculate(expression) {
   }
   console.log(sanitized);
   try {
-    // Use Function constructor with strict validation as a safer alternative
+    // Use Function constructor with strict validation as a safer alternative to eval
     // This limits the scope and prevents access to global variables
-    const result = Function(`"use strict"; return (${sanitized})`)();
+    const result = new Function(`"use strict"; return (${sanitized})`)();
 
     // Check if result is a valid number
     if (typeof result !== 'number' || !Number.isFinite(result)) {
@@ -34,6 +34,10 @@ function appendToDisplay(inputChar) {
   const display = document.getElementById('display');
   if (display) {
     if (display.value === '0' && ArrayOfOperators.includes(inputChar)) {
+      return;
+    }
+
+    if (ArrayOfOperators.includes(display.value.slice(-1)) && ArrayOfOperators.includes(inputChar)) {
       return;
     }
 
