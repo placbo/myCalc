@@ -83,3 +83,49 @@ h1 {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.3);
   background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
 }
+
+/* Inactive buttons - muted appearance */
+.row button.inactive {
+  background: linear-gradient(145deg, #252525, #1a1a1a);
+  color: #555;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.row button.inactive:hover {
+  background: linear-gradient(145deg, #252525, #1a1a1a);
+  transform: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Red/Clear button - stylish muted red */
+.row button.red {
+  background: linear-gradient(145deg, #6b2d2d, #4a1f1f);
+  color: #ff9999;
+}
+
+.row button.red:hover {
+  background: linear-gradient(145deg, #7b3333, #5a2525);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(107, 45, 45, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.row button.red:active {
+  background: linear-gradient(145deg, #4a1f1f, #3a1515);
+}
+
+/* Operator buttons - subtly highlighted */
+.row button.operator {
+  background: linear-gradient(145deg, #4a4a4a, #3a3a3a);
+  color: #ffd699;
+}
+
+.row button.operator:hover {
+  background: linear-gradient(145deg, #5a5a5a, #4a4a4a);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.row button.operator:active {
+  background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
+}
