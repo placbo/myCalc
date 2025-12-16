@@ -1,0 +1,19 @@
+{
+  "name": "vimtest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "format": "biome check --write .",
+    "lint": "biome lint .",
+    "predeploy": "npm run format",
+    "deploy": "gh-pages -d ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "gh-pages": "^6.3.0"
+  }
+}
