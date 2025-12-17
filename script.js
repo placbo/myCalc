@@ -30,9 +30,30 @@ function safeCalculate(expression) {
 
 const ArrayOfOperators = ['+', '-', 'x', '/'];
 
+// Add retro screen flash effect
+function flashDisplay() {
+  const display = document.getElementById('display');
+  display.style.textShadow = '0 0 20px #ff3a3a, 0 0 40px #ff3a3a, 0 0 60px #ff3a3a';
+  setTimeout(() => {
+    display.style.textShadow = '0 0 10px #ff6b6b, 0 0 20px #ff6b6b, 0 0 30px #ff3a3a';
+  }, 100);
+}
+
+// Add vintage screen wipe effect
+function screenWipe() {
+  const display = document.getElementById('display');
+  display.style.animation = 'none';
+  setTimeout(() => {
+    display.style.animation = 'ledFlicker 3s infinite alternate';
+  }, 10);
+}
+
 function appendToDisplay(inputChar) {
   const display = document.getElementById('display');
   if (display) {
+    // Flash effect on button press
+    flashDisplay();
+
     if (display.value === '0' && ArrayOfOperators.includes(inputChar)) {
       return;
     }
@@ -43,16 +64,19 @@ function appendToDisplay(inputChar) {
 
     if (inputChar === '=') {
       display.value = safeCalculate(display.value);
+      screenWipe();
       return;
     }
 
     if (inputChar === 'C') {
       display.value = '0';
+      screenWipe();
       return;
     }
 
     if (inputChar === '=') {
       display.value = safeCalculate(display.value);
+      screenWipe();
       return;
     }
 
@@ -69,3 +93,52 @@ function appendToDisplay(inputChar) {
     display.value += inputChar;
   }
 }
+
+// Add keyboard support for retro feel
+document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('keydown', (e) => {
+    const key = e.key;
+
+    // Number keys
+    if (key >= '0' && key <= '9') {
+      appendToDisplay(key);
+      e.preventDefault();
+    }
+
+    // Operators
+    if (key === '+' || key === '-' || key === '/' || key === '*') {
+      appendToDisplay(key === '*' ? 'x' : key);
+      e.preventDefault();
+    }
+
+    // Decimal point
+    if (key === '.') {
+      appendToDisplay(key);
+      e.preventDefault();
+    }
+
+    // Enter or equals
+    if (key === 'Enter' || key === '=') {
+      appendToDisplay('=');
+      e.preventDefault();
+    }
+
+    // Clear
+    if (key === 'Escape' || key.toLowerCase() === 'c') {
+      appendToDisplay('C');
+      e.preventDefault();
+    }
+
+    // Backspace (delete last character)
+    if (key === 'Backspace') {
+      const display = document.getElementById('display');
+      if (display && display.value.length > 1) {
+        display.value = display.value.slice(0, -1);
+      } else {
+        display.value = '0';
+      }
+      flashDisplay();
+      e.preventDefault();
+    }
+  });
+});

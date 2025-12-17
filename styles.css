@@ -1,133 +1,281 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap");
+
 :root {
-  --bg: #050917;
-  --main-color: #ff6347; /* Tomato color */
+  --vintage-beige: #d4c5a9;
+  --vintage-brown: #8b6f47;
+  --vintage-dark: #4a3728;
+  --led-red: #ff3a3a;
+  --led-glow: #ff6b6b;
+  --button-cream: #e8dcc4;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background-color: var(--bg);
-  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at center, #2d2416, #1a1410);
+  font-family: "Orbitron", monospace;
   padding: 20px;
-  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   min-height: 100vh;
+  perspective: 1000px;
+}
+
+/* Retro grid background pattern */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(rgba(139, 111, 71, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 111, 71, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  z-index: 0;
 }
 
 h1 {
-  color: var(--main-color);
+  color: var(--vintage-beige);
   text-align: center;
   margin-bottom: 20px;
+  text-shadow: 0 0 10px rgba(212, 197, 169, 0.5);
 }
 
 .calculator-body {
-  background-color: #1e1e1e;
-  padding: 25px;
-  margin-top: 5rem;
-  border-radius: 15px;
-  width: 320px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 99, 71, 0.3);
-  border: 1px solid #333;
+  position: relative;
+  background: linear-gradient(145deg, #a89075, #8b6f47);
+  padding: 30px 25px 35px 25px;
+  margin-top: 2rem;
+  border-radius: 20px;
+  width: 340px;
+  box-shadow:
+    0 25px 50px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.3),
+    0 0 0 8px var(--vintage-brown),
+    0 0 0 12px var(--vintage-dark);
+  border: 3px solid var(--vintage-dark);
+  animation: float 6s ease-in-out infinite;
+  transform-style: preserve-3d;
 }
 
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotateX(2deg);
+  }
+  50% {
+    transform: translateY(-10px) rotateX(2deg);
+  }
+}
+
+/* Vintage brand label */
+.calculator-body::before {
+  content: "RETRO-CALC 80";
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: var(--vintage-dark);
+  opacity: 0.6;
+}
+
+/* LED Display Container */
 #display {
   width: 100%;
-  height: 60px;
-  font-size: 28px;
+  height: 70px;
+  font-size: 38px;
   text-align: right;
-  padding: 10px 15px;
-  margin-bottom: 20px;
-  background-color: #2a2a2a;
-  border: 2px solid #444;
-  border-radius: 8px;
-  color: #fff;
+  padding: 12px 20px;
+  margin-bottom: 25px;
+  background: linear-gradient(to bottom, #1a0a0a, #2a1414);
+  border: none;
+  border-radius: 4px;
+  color: var(--led-red);
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
-  font-weight: lighter;
-  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5);
+  font-family: "Orbitron", monospace;
+  font-weight: 900;
+  letter-spacing: 3px;
+  box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.9), inset 0 0 5px rgba(255, 58, 58, 0.3), 0 2px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 0 10px var(--led-glow), 0 0 20px var(--led-glow), 0 0 30px var(--led-red);
+  animation: ledFlicker 3s infinite alternate;
+  position: relative;
+  overflow: hidden;
+}
+
+/* LED scan line effect */
+#display::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 107, 107, 0.8), transparent);
+  animation: scanline 4s linear infinite;
+}
+
+@keyframes scanline {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes ledFlicker {
+  0%,
+  100% {
+    text-shadow: 0 0 10px var(--led-glow), 0 0 20px var(--led-glow), 0 0 30px var(--led-red);
+  }
+  50% {
+    text-shadow: 0 0 8px var(--led-glow), 0 0 15px var(--led-glow), 0 0 25px var(--led-red);
+  }
 }
 
 .buttons {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .row {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   justify-content: space-between;
 }
 
 .row button {
+  position: relative;
   flex: 1;
-  height: 60px;
+  height: 55px;
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 900;
   border: none;
   border-radius: 8px;
-  background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
-  color: #fff;
+  background: linear-gradient(145deg, #f5e8d0, #d4c5a9);
+  color: #3a2818;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.1s ease;
+  box-shadow: 0 5px 0 #8b6f47, 0 6px 2px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5), inset 0 -1px 2px
+    rgba(0, 0, 0, 0.2);
   min-width: 0;
+  font-family: "Orbitron", monospace;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3);
+  overflow: hidden;
+}
+
+/* Ripple effect */
+.row button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.row button:active::before {
+  width: 100px;
+  height: 100px;
 }
 
 .row button:hover {
-  background: linear-gradient(145deg, #4a4a4a, #3a3a3a);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  background: linear-gradient(145deg, #fff8e8, #e8dcc4);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 0 #8b6f47, 0 7px 3px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 .row button:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 #8b6f47, 0 2px 2px rgba(0, 0, 0, 0.4), inset 0 2px 5px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(145deg, #d4c5a9, #c4b599);
 }
 
-/* Inactive buttons - muted appearance */
+/* Inactive buttons - vintage disabled look */
 .row button.inactive {
-  background: linear-gradient(145deg, #252525, #1a1a1a);
-  color: #555;
+  background: linear-gradient(145deg, #bab0a0, #a89890);
+  color: #6a5a4a;
   cursor: not-allowed;
-  opacity: 0.5;
+  opacity: 0.6;
+  box-shadow: 0 3px 0 #7a6757, 0 4px 2px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .row button.inactive:hover {
-  background: linear-gradient(145deg, #252525, #1a1a1a);
+  background: linear-gradient(145deg, #bab0a0, #a89890);
   transform: none;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 0 3px 0 #7a6757, 0 4px 2px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
-/* Red/Clear button - stylish muted red */
+.row button.inactive:active {
+  transform: none;
+}
+
+/* Red/Clear button - vintage red */
 .row button.red {
-  background: linear-gradient(145deg, #6b2d2d, #4a1f1f);
-  color: #ff9999;
+  background: linear-gradient(145deg, #d94a4a, #b83838);
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 0 #8b2828, 0 6px 2px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  animation: redPulse 2s ease-in-out infinite;
+}
+
+@keyframes redPulse {
+  0%,
+  100% {
+    box-shadow: 0 5px 0 #8b2828, 0 6px 2px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 0 0
+      rgba(217, 74, 74, 0);
+  }
+  50% {
+    box-shadow: 0 5px 0 #8b2828, 0 6px 2px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 0 15px
+      rgba(217, 74, 74, 0.6);
+  }
 }
 
 .row button.red:hover {
-  background: linear-gradient(145deg, #7b3333, #5a2525);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(107, 45, 45, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  background: linear-gradient(145deg, #e95858, #c94343);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 0 #8b2828, 0 7px 3px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .row button.red:active {
-  background: linear-gradient(145deg, #4a1f1f, #3a1515);
+  transform: translateY(4px);
+  background: linear-gradient(145deg, #b83838, #a83030);
+  box-shadow: 0 1px 0 #8b2828, 0 2px 2px rgba(0, 0, 0, 0.4), inset 0 2px 5px rgba(0, 0, 0, 0.4);
 }
 
-/* Operator buttons - subtly highlighted */
+/* Operator buttons - vintage orange/amber */
 .row button.operator {
-  background: linear-gradient(145deg, #4a4a4a, #3a3a3a);
-  color: #ffd699;
+  background: linear-gradient(145deg, #f5a742, #d98d2a);
+  color: #3a2010;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 5px 0 #a86820, 0 6px 2px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .row button.operator:hover {
-  background: linear-gradient(145deg, #5a5a5a, #4a4a4a);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  background: linear-gradient(145deg, #ffb752, #e99d3a);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 0 #a86820, 0 7px 3px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .row button.operator:active {
-  background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
+  transform: translateY(4px);
+  background: linear-gradient(145deg, #d98d2a, #c97d1a);
+  box-shadow: 0 1px 0 #a86820, 0 2px 2px rgba(0, 0, 0, 0.4), inset 0 2px 5px rgba(0, 0, 0, 0.3);
 }
